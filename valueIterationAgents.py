@@ -62,6 +62,15 @@ class ValueIterationAgent(ValueEstimationAgent):
     def runValueIteration(self):
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
+        for i in range(self.iterations):
+            newvalues = util.Counter()  # nieuwe Vk+1
+            for state in self.mdp.getStates():
+                if not self.mdp.isTerminal(state):
+                    qvalues = []
+                    for action in self.mdp.getPossibleActions(state):
+                        qvalues.append(self.computeQValueFromValues(state, action))
+                    newvalues[state] = max(qvalues)
+            self.values = newvalues  # Vk
 
 
     def getValue(self, state):
@@ -77,7 +86,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        q = 0
+        for nextstate, prob in self.mdp.getTransitionStatesAndProbs(state, action):
+            q += prob*(self.mdp.getReward(state, action, nextstate) + self.discount * self.values[nextstate])
+        return q
+        #util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
         """
@@ -89,7 +102,17 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        bestaction = None
+        value = -1
+        for action in self.mdp.getPossibleActions(state):
+            q = 0
+            for nextstate, prob in self.mdp.getTransitionStatesAndProbs(state, action):
+                q += prob*(self.mdp.getReward(state, action, nextstate) + self.discount*self.values[nextstate])
+            if q > value:
+                value = q
+                bestaction = action
+        return bestaction
+        #util.raiseNotDefined()
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
@@ -131,6 +154,7 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
 
+
 class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     """
         * Please read learningAgents.py before reading this.*
@@ -150,4 +174,3 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
 
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
-
