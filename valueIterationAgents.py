@@ -102,16 +102,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        bestaction = None
-        value = -1
-        for action in self.mdp.getPossibleActions(state):
-            q = 0
-            for nextstate, prob in self.mdp.getTransitionStatesAndProbs(state, action):
-                q += prob*(self.mdp.getReward(state, action, nextstate) + self.discount*self.values[nextstate])
-            if q > value:
-                value = q
-                bestaction = action
-        return bestaction
+        actions = self.mdp.getPossibleActions(state)
+        if not actions:
+            return None
+        # Starting from a fixed threshold such as -1 returns None when every Q-value is lower.
+        return max(actions, key=lambda action: self.computeQValueFromValues(state, action))
         #util.raiseNotDefined()
 
     def getPolicy(self, state):
