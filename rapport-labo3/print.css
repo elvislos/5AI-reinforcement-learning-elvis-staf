@@ -1,0 +1,30 @@
+@page { size: A4; margin: 14mm 15mm; }
+:root {
+  --text: #111;
+  --rule: #bbb;
+  --cell-border: #ccc;
+  /* Figures are full-resolution; their printed width is set here so they stay small but sharp. */
+  --figure-pair: 78%;
+  --figure-five: 100%;
+  --figure-wide: 52%;
+}
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.5pt; line-height: 1.32; color: var(--text); max-width: none; margin: 0; padding: 0; }
+h1 { font-size: 15pt; margin-block: 0 2pt; }
+h2 { font-size: 12pt; margin-block: 9pt 3pt; border-block-end: 1px solid var(--rule); break-after: avoid; }
+figure { margin-block: 3pt; margin-inline: 0; break-inside: avoid; }
+figcaption { text-align: center; font-size: 8pt; color: #444; }
+h3 { font-size: 10pt; margin-block: 7pt 2pt; break-after: avoid; }
+p, ul { margin-block: 2pt 4pt; }
+ul { padding-inline-start: 14pt; }
+img { max-width: 100%; display: block; margin-block: 3pt; margin-inline: auto; break-inside: avoid; }
+table { width: auto !important; border-collapse: collapse; font-size: 8.5pt; margin-block: 3pt 5pt; break-inside: avoid; }
+col { width: auto !important; }
+th, td { border: 1px solid var(--cell-border); padding: 1pt 4pt; vertical-align: top; }
+code { font-size: 8.5pt; }
+header#title-block-header { display: none; }
+
+img[alt^="BridgeGrid policies"],
+img[alt^="Q-values after 50 episodes"],
+img[alt^="One test game"] { width: var(--figure-pair); }
+img[alt^="The five DiscountGrid policies"] { width: var(--figure-five); }
+img[alt^="Q-values on the noiseless BridgeGrid"] { width: var(--figure-wide); }
