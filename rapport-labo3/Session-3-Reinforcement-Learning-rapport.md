@@ -1,6 +1,6 @@
 # Session 3: Reinforcement learning
 
-**Authors:** Elvis Los & Staf Dauwe
+**Group 07:** Elvis Los & Staf Dauwe
 
 ## Part I: Value iteration
 
